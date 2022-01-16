@@ -3,9 +3,11 @@ import Population from './models/Population';
 
 import { getCellPosition } from './utils';
 
-const cells: Cell[] = [];
+let cells: Cell[] = [];
 
 let isRunning = false;
+
+let requestId: number;
 
 const canvas = document.querySelector('canvas')!;
 const c = canvas.getContext('2d')!;
@@ -40,7 +42,7 @@ function startPopulation() {
       population.nextGeneration();
     }
     tick++;
-    requestAnimationFrame(f);
+    requestId = requestAnimationFrame(f);
   }
 
   f();
@@ -55,6 +57,13 @@ function registerKeyboardControls() {
 
     if (event.key === 't') {
       isRunning = !isRunning;
+    }
+
+    if (event.key === 'r') {
+      isRunning = false;
+      cells = [];
+      cancelAnimationFrame(requestId);
+      c.clearRect(0, 0, canvas.width, canvas.height);
     }
   });
 }
