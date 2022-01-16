@@ -3,7 +3,9 @@
     "start": "yarn parcel serve src/index.html",
     "build": "yarn parcel build src/index.html --public-url .",
     "lint": "yarn eslint --ignore-path .eslintignore --ext .js,.ts .",
-    "format": "yarn prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+    "format": "yarn prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.9.0",
@@ -11,6 +13,7 @@
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "2.25.2",
+    "gh-pages": "^3.2.3",
     "parcel": "^2.1.1",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
