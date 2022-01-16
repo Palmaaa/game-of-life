@@ -18,13 +18,15 @@ function setupCanvas() {
   c.lineWidth = 1;
 
   canvas.addEventListener('click', (event) => {
-    cells.push(
-      new Cell(
-        c,
-        getCellPosition(event.clientX),
-        getCellPosition(event.clientY),
-      ),
-    );
+    if (!isRunning) {
+      cells.push(
+        new Cell(
+          c,
+          getCellPosition(event.clientX),
+          getCellPosition(event.clientY),
+        ),
+      );
+    }
   });
 }
 
