@@ -1,7 +1,7 @@
 import Cell from './models/Cell';
 import Population from './models/Population';
 
-import { getCellPosition } from './utils';
+import { alreadyHasCellAt, getCellPosition } from './utils';
 
 let cells: Cell[] = [];
 
@@ -20,12 +20,15 @@ function setupCanvas() {
   c.lineWidth = 1;
 
   canvas.addEventListener('click', (event) => {
-    if (!isRunning) {
+    const x = getCellPosition(event.clientX);
+    const y = getCellPosition(event.clientY);
+
+    if (!isRunning && !alreadyHasCellAt(x, y, cells)) {
       cells.push(
         new Cell(
           c,
-          getCellPosition(event.clientX),
-          getCellPosition(event.clientY),
+          x,
+          y,
         ),
       );
     }
