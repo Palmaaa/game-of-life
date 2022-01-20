@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "yarn parcel serve src/index.html",
+    "start": "yarn parcel --no-cache src/index.html",
     "build": "yarn parcel build src/index.html --public-url .",
     "lint": "yarn eslint --ignore-path .eslintignore --ext .js,.ts .",
     "format": "yarn prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
