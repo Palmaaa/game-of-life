@@ -51,23 +51,25 @@ function startPopulation() {
   f();
 }
 
+const keyboardActions: { [k: string]: () => void } = {
+  Enter: () => {
+    isRunning = true;
+    startPopulation();
+  },
+  t: () => {
+    isRunning = !isRunning;
+  },
+  r: () => {
+    isRunning = false;
+    cells = [];
+    cancelAnimationFrame(requestId);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+  },
+};
+
 function registerKeyboardControls() {
   document.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-      isRunning = true;
-      startPopulation();
-    }
-
-    if (event.key === 't') {
-      isRunning = !isRunning;
-    }
-
-    if (event.key === 'r') {
-      isRunning = false;
-      cells = [];
-      cancelAnimationFrame(requestId);
-      c.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    keyboardActions[event.key]();
   });
 }
 
