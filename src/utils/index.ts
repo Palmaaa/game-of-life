@@ -1,8 +1,7 @@
-import { cell } from '../config';
 import Cell from '../models/Cell';
 
-export function getCellPosition(coordinate: number) {
-  return cell.size * (Math.ceil(coordinate / cell.size) - 1);
+export function getCellPosition(coordinate: number, cellSideLength: number) {
+  return cellSideLength * (Math.ceil(coordinate / cellSideLength) - 1);
 }
 
 export function alreadyHasCellAt(x: number, y: number, cells: Cell[]) {

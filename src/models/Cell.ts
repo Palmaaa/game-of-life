@@ -1,9 +1,7 @@
-import { cell as cellConfig } from '../config';
-
 class Cell {
-  private width = cellConfig.size;
+  private width: number;
 
-  private height = cellConfig.size;
+  private height: number;
 
   x: number;
 
@@ -11,14 +9,18 @@ class Cell {
 
   c: CanvasRenderingContext2D;
 
-  dx = this.width;
+  dx: number;
 
-  dy = this.height;
+  dy: number;
 
-  constructor(c: CanvasRenderingContext2D, x: number, y: number) {
+  constructor(c: CanvasRenderingContext2D, x: number, y: number, sideLength: number) {
     this.x = x;
     this.y = y;
     this.c = c;
+    this.width = sideLength;
+    this.height = sideLength;
+    this.dx = sideLength;
+    this.dy = sideLength;
 
     this.draw();
   }

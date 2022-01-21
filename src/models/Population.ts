@@ -1,4 +1,3 @@
-import { cell as cellConfig } from '../config';
 import Cell from './Cell';
 
 const canvas = document.querySelector('canvas')!;
@@ -6,6 +5,8 @@ const canvas = document.querySelector('canvas')!;
 const c = canvas.getContext('2d')!;
 
 class Population {
+  cellSideLength: number;
+
   aliveCells: Cell[];
 
   deadCellsIndexes: number[] = [];
@@ -14,13 +15,14 @@ class Population {
 
   generationCounter = 1;
 
-  constructor(aliveCells: Cell[]) {
+  constructor(aliveCells: Cell[], cellSideLength: number) {
     this.aliveCells = aliveCells;
+    this.cellSideLength = cellSideLength;
   }
 
   nextGeneration() {
-    for (let x = 0; x < window.innerWidth; x += cellConfig.size) {
-      for (let y = 0; y < window.innerHeight; y += cellConfig.size) {
+    for (let x = 0; x < window.innerWidth; x += this.cellSideLength) {
+      for (let y = 0; y < window.innerHeight; y += this.cellSideLength) {
         const cell = this.findCellAt(x, y);
 
         if (cell) {
@@ -44,7 +46,7 @@ class Population {
 
   handleDeadCellAt(x: number, y: number) {
     if (this.shouldBecomeAliveCellAt(x, y)) {
-      this.newBornCells.push(new Cell(c, x, y));
+      this.newBornCells.push(new Cell(c, x, y, this.cellSideLength));
     }
   }
 
@@ -52,14 +54,14 @@ class Population {
     let n = 0;
     this.aliveCells.forEach((cell) => {
       if (
-        (cell.x === x - cellConfig.size && cell.y === y - cellConfig.size)
-        || (cell.x === x - cellConfig.size && cell.y === y)
-        || (cell.x === x - cellConfig.size && cell.y === y + cellConfig.size)
-        || (cell.x === x && cell.y === y - cellConfig.size)
-        || (cell.x === x && cell.y === y + cellConfig.size)
-        || (cell.x === x + cellConfig.size && cell.y === y - cellConfig.size)
-        || (cell.x === x + cellConfig.size && cell.y === y)
-        || (cell.x === x + cellConfig.size && cell.y === y + cellConfig.size)
+        (cell.x === x - this.cellSideLength && cell.y === y - this.cellSideLength)
+        || (cell.x === x - this.cellSideLength && cell.y === y)
+        || (cell.x === x - this.cellSideLength && cell.y === y + this.cellSideLength)
+        || (cell.x === x && cell.y === y - this.cellSideLength)
+        || (cell.x === x && cell.y === y + this.cellSideLength)
+        || (cell.x === x + this.cellSideLength && cell.y === y - this.cellSideLength)
+        || (cell.x === x + this.cellSideLength && cell.y === y)
+        || (cell.x === x + this.cellSideLength && cell.y === y + this.cellSideLength)
       ) {
         n++;
       }

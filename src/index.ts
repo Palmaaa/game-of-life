@@ -5,6 +5,8 @@ import { alreadyHasCellAt, getCellPosition } from './utils';
 
 let cells: Cell[] = [];
 
+let cellSideLength: number;
+
 let isRunning = false;
 
 let requestId: number;
@@ -19,9 +21,13 @@ function setupCanvas() {
   c.strokeStyle = '#ccc';
   c.lineWidth = 1;
 
+  while (!cellSideLength) {
+    cellSideLength = Number(prompt('Enter the cell\'s side length (in px)')!);
+  }
+
   canvas.addEventListener('click', (event) => {
-    const x = getCellPosition(event.clientX);
-    const y = getCellPosition(event.clientY);
+    const x = getCellPosition(event.clientX, cellSideLength);
+    const y = getCellPosition(event.clientY, cellSideLength);
 
     if (!isRunning && !alreadyHasCellAt(x, y, cells)) {
       cells.push(
@@ -29,6 +35,7 @@ function setupCanvas() {
           c,
           x,
           y,
+          cellSideLength,
         ),
       );
     }
@@ -36,7 +43,7 @@ function setupCanvas() {
 }
 
 function startPopulation() {
-  const population = new Population(cells);
+  const population = new Population(cells, cellSideLength);
 
   let tick = 1;
 
